@@ -18,22 +18,13 @@
       crossorigin="anonymous"
     />
 
-    <title>User Data</title>
+    <title>Every User Data</title>
   </head>
-  <body style="background-color: gainsboro">
+  <body style="background-color: rgb(242, 235, 245)">
     <div>
-      <h1 style="text-align: center; margin-top: 20px">USER DATA</h1>
-
-      <button
-        data-toggle="modal"
-        data-target="#exampleModal"
-        type="button"
-        style="float: right; margin: 10px 120px 10px 0px"
-        class="btn btn-secondary"
-      >
-        <span><i class="fa fa-user-plus"></i></span>
-        Add User
-      </button>
+      <h1 style="text-align: center; margin-top: 20px; color: brown">
+        USER DATA
+      </h1>
 
       <div style="margin-left: 120px; margin-right: 120px">
         <table class="table caption-top">
@@ -45,7 +36,7 @@
               <th scope="col">ID</th>
               <th scope="col">NAME</th>
               <th scope="col">EMAIL</th>
-              <th scope="col">ADDRESS</th>
+              <th scope="col">password</th>
               <th scope="col">Actions</th>
             </tr>
           </thead>
@@ -53,7 +44,19 @@
         </table>
       </div>
     </div>
-
+    <div style="display: flex;flex-direction: column;justify-content: center; align-items: center;position:absolute;right: 0;bottom: 0;">
+      <button
+      data-toggle="modal"
+      data-target="#exampleModal"
+      type="button"
+      style="float: right; margin: 10px 120px 10px 0px"
+      class="btn btn-primary"
+    >
+      <span><i class="fa fa-user-plus"></i></span>
+      Add User
+    </button>
+    </div>
+    
     <!-- Add user Modal -->
     <div
       class="modal fade"
@@ -124,14 +127,16 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" onclick="addUser()">Add</button>
+            <button type="button" class="btn btn-primary" onclick="addUser()">
+              Add
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-     <!-- Edit user Modal -->
-     <div
+    <!-- Edit user Modal -->
+    <div
       class="modal fade"
       id="exampleModal2"
       tabindex="-1"
@@ -200,7 +205,9 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary" id="edit-user">Edit</button>
+            <button type="button" class="btn btn-primary" id="edit-user">
+              Edit
+            </button>
           </div>
         </div>
       </div>
@@ -219,8 +226,8 @@
           .then((response) => {
             const users = response;
             users?.data?.map((item, index) => {
-              let id=item._id
-              console.log('id===>',id)
+              let id = item._id;
+              console.log("id===>", id);
               tableRow = `<tr>
                         <th scope="row">${index + 1}</th>
                         <td>${item?.name}</td>
@@ -228,7 +235,9 @@
                         <td>${item?.pass}</td>
                         <td>
                           <i
-                            onclick="isEditModal('${item.name}', '${item.email}', '${item.pass}', '${id}')"
+                            onclick="isEditModal('${item.name}', '${
+                item.email
+              }', '${item.pass}', '${id}')"
                             style="
                               margin-left: 10px;
                               font-size: larger;
@@ -261,31 +270,33 @@
       };
 
       const isEditModal = async (name, email, pass, id) => {
-        document.getElementById('user-name-ed').value = name;
-        document.getElementById('user-email-ed').value = email;
-        document.getElementById('user-address-ed').value = pass;
-        document.getElementById('edit-user').setAttribute('onclick', `editUserData('${id}')`)
-        $("#exampleModal2").modal('show');
-      }
+        document.getElementById("user-name-ed").value = name;
+        document.getElementById("user-email-ed").value = email;
+        document.getElementById("user-address-ed").value = pass;
+        document
+          .getElementById("edit-user")
+          .setAttribute("onclick", `editUserData('${id}')`);
+        $("#exampleModal2").modal("show");
+      };
 
       const editUserData = async (id) => {
-        const name = document.getElementById('user-name-ed').value;
-        const email = document.getElementById('user-email-ed').value;
-        const pass = document.getElementById('user-address-ed').value;
+        const name = document.getElementById("user-name-ed").value;
+        const email = document.getElementById("user-email-ed").value;
+        const pass = document.getElementById("user-address-ed").value;
 
         await axios({
-          method: 'put',
+          method: "put",
           url: `https://immproject.herokuapp.com/users/${id}`,
-          data: {name, email, pass}
+          data: { name, email, pass },
         })
           .then((response) => {
             console.log("response==>", response.data);
             getAllUser();
-            $("#exampleModal2").modal('hide');
+            $("#exampleModal2").modal("hide");
           })
           .catch((error) => console.error(error));
-        $("#exampleModal2").modal('show');
-      }
+        $("#exampleModal2").modal("show");
+      };
 
       const deleteUser = async (id) => {
         console.log("delete user!", id);
@@ -302,11 +313,11 @@
         const name = document.getElementById("user-name").value;
         const email = document.getElementById("user-email").value;
         const pass = document.getElementById("user-address").value;
-        console.log('name ,email , pass===>',name,email,pass)
+        console.log("name ,email , pass===>", name, email, pass);
         await axios({
-          method: 'post',
-          url: 'https://immproject.herokuapp.com/users',
-          data: {name, email, pass}
+          method: "post",
+          url: "https://immproject.herokuapp.com/users",
+          data: { name, email, pass },
         })
           .then((response) => {
             console.log("response==>", response.data);
@@ -320,11 +331,10 @@
       };
 
       window.onload = function () {
-          console.log('get all user first time')
+        console.log("get all user first time");
         getAllUser();
       };
     </script>
-
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script
