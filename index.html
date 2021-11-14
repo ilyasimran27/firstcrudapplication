@@ -219,6 +219,8 @@
           .then((response) => {
             const users = response;
             users?.data?.map((item, index) => {
+              let id=item._id
+              console.log('id===>',id)
               tableRow = `<tr>
                         <th scope="row">${index + 1}</th>
                         <td>${item?.name}</td>
@@ -226,7 +228,7 @@
                         <td>${item?.pass}</td>
                         <td>
                           <i
-                            onclick="isEditModal('${item.name}', '${item.email}', '${item.pass}', ${index})"
+                            onclick="isEditModal('${item.name}', '${item.email}', '${item.pass}', '${id}')"
                             style="
                               margin-left: 10px;
                               font-size: larger;
@@ -236,7 +238,7 @@
                             class="fa fa-edit"
                           ></i>
                           <i
-                            onclick="deleteUser(${index})"
+                            onclick="deleteUser('${id}')"
                             style="
                               margin-left: 10px;
                               font-size: larger;
@@ -262,7 +264,7 @@
         document.getElementById('user-name-ed').value = name;
         document.getElementById('user-email-ed').value = email;
         document.getElementById('user-address-ed').value = pass;
-        document.getElementById('edit-user').setAttribute('onclick', `editUserData(${id})`)
+        document.getElementById('edit-user').setAttribute('onclick', `editUserData('${id}')`)
         $("#exampleModal2").modal('show');
       }
 
