@@ -22,22 +22,20 @@
   </head>
   <body style="background-color: rgb(242, 235, 245)">
     <div>
-      <h1 style="text-align: center; margin-top: 20px; color: brown">
-        USER DATA
-      </h1>
+      <h3 style="margin-top: 20px;margin-left: 50px;text-align: center;">
+        Data
+      </h3>
 
-      <div style="margin-left: 120px; margin-right: 120px">
-        <table class="table caption-top">
+      <div style="margin-left: 120px; margin-right: 120px;">
+        <table class="table table-dark">
           <!-- <caption>
             List of users
           </caption> -->
           <thead>
             <tr>
-              <th scope="col">ID</th>
               <th scope="col">NAME</th>
               <th scope="col">EMAIL</th>
               <th scope="col">password</th>
-              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody id="tableBody"></tbody>
@@ -52,7 +50,7 @@
       style="float: right; margin: 10px 120px 10px 0px"
       class="btn btn-primary"
     >
-      <span><i class="fa fa-user-plus"></i></span>
+      <span><i class="fa fa-usero"></i></span>
       Add User
     </button>
     </div>
@@ -229,12 +227,11 @@
               let id = item._id;
               console.log("id===>", id);
               tableRow = `<tr>
-                        <th scope="row">${index + 1}</th>
                         <td>${item?.name}</td>
                         <td>${item?.email}</td>
                         <td>${item?.pass}</td>
                         <td>
-                          <i
+                          <button
                             onclick="isEditModal('${item.name}', '${
                 item.email
               }', '${item.pass}', '${id}')"
@@ -244,18 +241,18 @@
                               cursor: pointer;
                               color: blue;
                             "
-                            class="fa fa-edit"
-                          ></i>
-                          <i
+                           
+                          >Edit</button>
+                          <button
                             onclick="deleteUser('${id}')"
                             style="
                               margin-left: 10px;
                               font-size: larger;
                               cursor: pointer;
-                              color: red;
+                              color:danger;
                             "
-                            class="fa fa-trash"
-                          ></i>
+                            
+                          >Delete</button>
                         </td>
                       </tr>`;
               tableBody.innerHTML =
